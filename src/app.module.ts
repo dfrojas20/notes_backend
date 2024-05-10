@@ -16,7 +16,7 @@ console.log(url1)
 console.log(url2)
 console.log(url3)
 
-if (url1 === null ){
+if (url1 === undefined ){
   url = 'mongodb://mongo:AyDxAggoIFCQkKBkKkYKFvrkjMOXmVNN@monorail.proxy.rlwy.net:52294'
 }else{
   url = `mongodb://${url1}:27017,${url2}:27017,${url3}:27017/test?replicaSet=myReplicaSet`
