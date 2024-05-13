@@ -5,6 +5,8 @@ import { DeleteNoteService } from './services/delete.note.service';
 import { getNoteService } from './services/get.note.service';
 import { Response, Request, query } from 'express';
 import { insertNoteDto } from './dto/insertNoteDto';
+import { deleteNoteDto } from './dto/deleteNoteDto';
+import { updateNoteDto } from './dto/updateNoteDto';
 
 
 @Controller()
@@ -31,15 +33,36 @@ export class AppController {
     
   }
 
-  @Put()
-  putNote(){
-    // this.UpdateNoteService.update(id_note)
+  @Put('/notes')
+  async update(@Res() response: Response, @Req() request: Request): Promise<any> {
+    const { id_note, title, content } = request.body
+
+    if (id_note !== undefined) {
+      let note = await this.UpdateNoteService.update(new updateNoteDto(id_note.toString(),title.toString(),content.toString())) 
+      if (note) {
+        return(response.status(200).json(note))
+      }
+      return response.status(404).json({"message": "bad request"})
+    }
+  
+    return(response.status(404).json({"message": "bad request(undefined object)"}))
+}
+
+  @Delete('/notes')
+    async delete(@Res() response: Response, @Req() request: Request): Promise<any> {
+      const { id_note } = request.query
+  
+      if (id_note !== undefined) {
+        let note = await this.DeleteNoteService.delete(new deleteNoteDto(id_note.toString())) 
+        if (note) {
+          return(response.status(200).json(note))
+        }
+        return response.status(404).json({"message": "bad request"})
+      }
+    
+      return(response.status(404).json({"message": "bad request(undefined object)"}))
   }
 
-  @Delete()
-  DeleNote(){
-
-  }
 
   @Get('/notes')
   async getHello(@Res() response: Response, @Req() request: Request): Promise<any> {
