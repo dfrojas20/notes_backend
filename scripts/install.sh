@@ -66,7 +66,7 @@ echo "configurando dns.."
 
 sudo cp /etc/hosts /etc/hosts__bak
 for container_ip in $(sudo lxc list | grep front | awk '{print $6}'); do
-  echo $container_ip notes.app | sudo tee -a /etc/hosts
+  echo $container_ip app.notes.com | sudo tee -a /etc/hosts
 done
 cat /etc/hosts
-dig notes.app
+dig app.notes.com
