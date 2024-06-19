@@ -7,20 +7,11 @@ import { getNoteService } from './services/get.note.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Note, NoteSchema } from './schemas/note.schema';
 
-var url1: string = process.env.URL1
-var url2: string = process.env.URL2
-var url3: string = process.env.URL3
-var url: string = ''
+var url: string = process.env.DB_HOST
 
-console.log(url1)
-console.log(url2)
-console.log(url3)
+//*`mongodb://${url1}:27017,${url2}:27017,${url3}:27017/test?replicaSet=myReplicaSet`
 
-if (url1 === undefined ){
-  url = 'mongodb://mongo:AyDxAggoIFCQkKBkKkYKFvrkjMOXmVNN@monorail.proxy.rlwy.net:52294'
-}else{
-  url = `mongodb://${url1}:27017,${url2}:27017,${url3}:27017/test?replicaSet=myReplicaSet`
-}
+if (url === undefined ) url = 'mongodb://mongo:AyDxAggoIFCQkKBkKkYKFvrkjMOXmVNN@monorail.proxy.rlwy.net:52294'
 
 console.log(url)
 
